@@ -1,6 +1,6 @@
 --- Preprocessing Proof ---
 
-Preprocessing time: 6.45 seconds
+Preprocessing time: 6.61 seconds
 
 This file shows a sample of 10 messages before and after preprocessing.
 Preprocessing includes: lowercasing, tokenization, stopword and punctuation removal, and lemmatization.
