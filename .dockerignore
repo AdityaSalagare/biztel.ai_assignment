@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+venv/
+.env
+.git
+.gitignore
+*.pdf
+*.ipynb
+plots/
+preprocessing_proof.txt 

@@ -1,0 +1,47 @@
+--- Preprocessing Proof ---
+
+Preprocessing time: 6.45 seconds
+
+This file shows a sample of 10 messages before and after preprocessing.
+Preprocessing includes: lowercasing, tokenization, stopword and punctuation removal, and lemmatization.
+
+--- Record 1 ---
+Original:  Did you know that the University of Iowa's locker room is painted pink? I wonder why?
+Processed: know university iowa 's locker room painted pink wonder
+
+--- Record 2 ---
+Original:  I think I did hear something about that.  I imagine it is an attempt to psych the other team out.
+Processed: think hear something imagine attempt psych team
+
+--- Record 3 ---
+Original:  So, it would be in the visiting team's locker room but not their own?
+Processed: would visiting team 's locker room
+
+--- Record 4 ---
+Original:  Right.  Teams do all kinds of things to bother the competition. I've heard of teams having heated benches in the winter for themselves but not for the visitors.
+Processed: right team kind thing bother competition 've heard team heated bench winter visitor
+
+--- Record 5 ---
+Original:  I would hate a cold bench. Then again, I wouldn't want to be some place that cold or watching football.
+Processed: would hate cold bench would n't want place cold watching football
+
+--- Record 6 ---
+Original:  I'd rather watch it inside where it's warm.  Have you heard about the Georgia Tech-Cumberland game of 1916?
+Processed: 'd rather watch inside 's warm heard georgia tech-cumberland game 1916
+
+--- Record 7 ---
+Original:  No, what happened in that game?
+Processed: happened game
+
+--- Record 8 ---
+Original:  Georgia Tech defeated Cumberland but here's the thing, they defeated them by a score of 222-0!
+Processed: georgia tech defeated cumberland 's thing defeated score 222-0
+
+--- Record 9 ---
+Original:  That is insane. How could that even happen?
+Processed: insane could even happen
+
+--- Record 10 ---
+Original:  I don't know but it did.  It's the highest scoring game in history.
+Processed: n't know 's highest scoring game history
+
