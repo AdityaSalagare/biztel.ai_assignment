@@ -1,5 +1,18 @@
 # Biztel AI Data Science Assignment
 
+> **Note:** Please read this README  before accessing the deployed AWS endpoint. It contains important setup, usage, and authentication details.
+
+## AWS Deployment
+The API is currently deployed on an AWS EC2 instance and is publicly accessible.
+
+**Endpoint URL:**  
+[http://ec2-13-201-99-199.ap-south-1.compute.amazonaws.com:8000/docs](http://ec2-13-201-99-199.ap-south-1.compute.amazonaws.com:8000/docs)
+
+**Authentication:**
+- **API Key:** `AdityaSalagare`
+- **Header:** `X-API-Key`
+- In Swagger UI, click "Authorize" and enter the key.
+
 ## Objective
 This project demonstrates production-level Python code, API development, and AI-driven solutions for real-world SaaS applications. It processes and analyzes chat transcripts between two agents discussing Washington Post articles, and exposes insights via a robust REST API.
 
