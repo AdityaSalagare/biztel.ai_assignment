@@ -9,4 +9,11 @@ transformers
 seaborn
 matplotlib
 wordcloud
-python-multipart 
+python-multipart
+# Monitoring
+ddtrace
+bugsnag
+# Testing and Linting
+pytest
+flake8
+requests 

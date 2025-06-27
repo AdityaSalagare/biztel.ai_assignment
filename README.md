@@ -54,6 +54,9 @@ This project demonstrates production-level Python code, API development, and AI-
 ### **Bonus Points**
 - **✔ Authentication:** API key required for all endpoints except root.
 - **✔ Dockerization:** `Dockerfile` and `.dockerignore` included for easy containerization.
+- **✔ CI/CD:** GitHub Actions and CircleCI pipelines for automated testing and linting.
+- **✔ Kubernetes:** Manifests for deploying to a K8s cluster.
+- **✔ Monitoring:** Integrated with Datadog and Bugsnag.
 
 ---
 
@@ -65,6 +68,10 @@ This project demonstrates production-level Python code, API development, and AI-
 - `main.py` — FastAPI REST API
 - `requirements.txt` — Python dependencies
 - `Dockerfile`, `.dockerignore` — For containerization
+- `.github/workflows/ci-cd.yml` — GitHub Actions workflow
+- `.circleci/config.yml` — CircleCI configuration
+- `kubernetes/` — Kubernetes deployment and service manifests
+- `tests/` — Automated tests for the API
 - `.gitignore` — For Git hygiene
 - `preprocessing_working.txt` — Proof of preprocessing (sample before/after)
 - `plots/` — EDA visualizations
@@ -126,12 +133,63 @@ uvicorn main:app --reload
   curl -H "X-API-Key: AdityaSalagare" http://127.0.0.1:8000/summary
   ```
 
-### 4. **Docker (Optional)**
+### 4. **Run with Monitoring (Datadog & Bugsnag)**
+To run the app with performance monitoring and error tracking enabled:
+1.  Set your environment variables:
+    ```bash
+    export API_KEY="your-secret-key"
+    export BUGSNAG_API_KEY="your-bugsnag-key"
+    export DD_API_KEY="your-datadog-key"
+    export DD_ENV="development"
+    export DD_SERVICE="biztel-api"
+    export DD_VERSION="1.0"
+    ```
+2.  Run the application with `dd-trace-run`:
+    ```bash
+    dd-trace-run uvicorn main:app --reload
+    ```
+
+#### **Authentication**
+- All endpoints except `/` require the header: `X-API-Key: <your_key>`
+- Default key: `AdityaSalagare`
+- In Swagger UI (`/docs`), click "Authorize" at the top right, enter the key, and click "Authorize".
+- With `curl`:
+  ```bash
+  curl -H "X-API-Key: AdityaSalagare" http://127.0.0.1:8000/summary
+  ```
+
+### 5. **Docker (Optional)**
 To build and run the API in a container:
 ```bash
-docker build -t biztelai-app .
-docker run -p 8000:8000 biztelai-app
+docker build -t biztel-api-app .
+docker run -p 8000:8000 \
+  -e API_KEY="your-secret-key" \
+  -e BUGSNAG_API_KEY="your-bugsnag-key" \
+  -e DD_API_KEY="your-datadog-key" \
+  biztel-api-app
 ```
+
+### 6. **Deploy to Kubernetes (Optional)**
+If you have a Kubernetes cluster (like Minikube, Docker Desktop K8s, or a cloud provider like EKS):
+1.  **Build and push your Docker image** to a registry like Docker Hub:
+    ```bash
+    docker build -t your-dockerhub-username/biztel-api:latest .
+    docker push your-dockerhub-username/biztel-api:latest
+    ```
+2.  **Update the image name** in `kubernetes/deployment.yaml`.
+3.  **Apply the manifests:**
+    ```bash
+    kubectl apply -f kubernetes/
+    ```
+
+---
+
+## CI/CD Pipelines
+This project is configured with CI/CD pipelines for both **GitHub Actions** and **CircleCI**.
+- **What they do:** On every push or pull request to the `main` branch, the pipelines automatically install dependencies, run code quality checks (`flake8`), and execute automated tests (`pytest`).
+- **Location:**
+    - GitHub Actions: `.github/workflows/ci-cd.yml`
+    - CircleCI: `.circleci/config.yml`
 
 ---
 
@@ -194,7 +252,20 @@ Interactive docs: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 - **Transcript analysis:** Uses a light LLM for summarization; all other fields are 100% accurate from the data
 - **API:** Async, production-ready, with error handling, logging, and authentication
 - **Preprocessing proof:** See `preprocessing_working.txt` for before/after samples
-- **Docker:** Fully containerized for easy deployment
+- **Docker:** Fully containerized for easy deployment using a multi-stage build for a smaller, more secure image.
+- **CI/CD:** Automated testing and linting pipelines ensure code quality and stability.
+- **Kubernetes:** Manifests are provided for scalable and orchestrated deployments.
+- **Monitoring:** Integrated with Datadog for performance tracing and Bugsnag for real-time error monitoring.
+
+---
+
+## Submission Checklist
+- [x] Dockerfile and .dockerignore for containerization
+- [x] Authentication for API endpoints
+- [x] CI/CD pipelines (GitHub Actions, CircleCI)
+- [x] Kubernetes deployment manifests
+- [x] Monitoring integration (Datadog, Bugsnag)
+- [x] Preprocessing proof file
 
 ---
 

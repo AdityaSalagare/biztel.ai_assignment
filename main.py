@@ -5,6 +5,11 @@ from data_pipeline import DataPreprocessor
 import logging
 import pandas as pd
 from contextlib import asynccontextmanager
+import os
+import bugsnag
+from bugsnag.asgi import BugsnagMiddleware
+import ddtrace
+
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -49,7 +54,28 @@ except FileNotFoundError as e:
     logger.error(f"Failed to load data: {e}")
     analyzer = None
 
-API_KEY = "AdityaSalagare"  # Change this to a secure value in production
+# --- Monitoring Setup ---
+
+# Datadog Tracing
+# Configure Datadog tracer. For this to work, you need to run the app with `dd-trace-run`.
+# Environment variables like DD_ENV, DD_SERVICE, DD_VERSION, DD_API_KEY will be used.
+ddtrace.configure(
+    fastapi=True,
+    # Add any other integrations you need
+)
+
+# Bugsnag Error Monitoring
+# Configure Bugsnag with your API key from an environment variable.
+if os.getenv("BUGSNAG_API_KEY"):
+    bugsnag.configure(
+        api_key=os.getenv("BUGSNAG_API_KEY"),
+        project_root="/app",  # Adjust if your project root is different in Docker
+    )
+    # Add Bugsnag middleware to the app
+    app.add_middleware(BugsnagMiddleware)
+
+# --- API Key Authentication ---
+API_KEY = os.getenv("API_KEY", "AdityaSalagare")  # Use env var or default
 API_KEY_NAME = "X-API-Key"
 
 def api_key_auth(x_api_key: str = Header(..., alias=API_KEY_NAME)):

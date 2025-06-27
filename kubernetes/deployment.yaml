@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: biztel-api-deployment
+spec:
+  replicas: 2  # Start with 2 replicas for high availability
+  selector:
+    matchLabels:
+      app: biztel-api
+  template:
+    metadata:
+      labels:
+        app: biztel-api
+    spec:
+      containers:
+      - name: biztel-api
+        image: your-dockerhub-username/biztel-api:latest  # <-- IMPORTANT: Change this to your Docker image
+        ports:
+        - containerPort: 8000
+        env:
+        - name: API_KEY
+          value: "AdityaSalagare"  # You can also use secrets for this
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m" 
