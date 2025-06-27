@@ -16,4 +16,5 @@ bugsnag
 # Testing and Linting
 pytest
 flake8
-requests 
+requests
+httpx
